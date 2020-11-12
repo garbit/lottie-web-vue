@@ -1,0 +1,57 @@
+{
+  "name": "lottie-web-vue",
+  "version": "1.0.0",
+  "description": "Airbnb Lottie-web component for Vue.js projects",
+  "main": "dist/lottie-web-vue.umd.js",
+  "module": "dist/lottie-web-vue.esm.js",
+  "unpkg": "dist/lottie-web-vue.min.js",
+  "browser": {
+    "./sfc": "src/lottie-web-vue.vue"
+  },
+  "scripts": {
+    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/lottie-web-vue.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/lottie-web-vue.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/lottie-web-vue.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garbit/lottie-web-vue.git"
+  },
+  "keywords": [
+    "vuejs",
+    "lottie",
+    "lottie-web-vue",
+    "lottie-web-vuejs",
+    "lottie-web-animation",
+    "vue-lottie",
+    "lottie-vue",
+    "lottie-web",
+    "web-lottie",
+    "lottie-player",
+    "player-lottie",
+    "vue-lottie-player",
+    "lottie-player-vue",
+    "player-lottie-vue",
+    "vue-component",
+    "vue-animation",
+    "lottiefiles"
+  ],
+  "author": "Andy Garbett",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/garbit/lottie-web-vue/issues"
+  },
+  "homepage": "https://github.com/garbit/lottie-web-vue#readme",
+  "dependencies": {
+    "lottie-web": "^5.7.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-buble": "^0.21.3",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "rollup": "^1.17.0",
+    "rollup-plugin-vue": "^5.0.1",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
+  }
+}
