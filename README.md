@@ -1,6 +1,6 @@
-<h1 align="center">Lottie-Web-Vue</h1>
 <div style="text-align: center">
-  <img src="lottie-web-vue-animation.gif" style="height: 200px"/>
+  <h1>Lottie-Web-Vue</h1>
+  <img src="lottie-web-vue-animation.gif" style="height: 300px; width: 300px"/>
   
   [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
   [![npm](https://img.shields.io/npm/dt/lottie-web-vue.svg?style=flat-square)](https://www.npmjs.com/package/lottie-web-vue)
@@ -14,13 +14,15 @@ Airbnb's [Lottie-web](https://github.com/airbnb/lottie-web) is a library for ren
 <br />
 
 # Animations
-You can browse and download animations from [LottieFiles](lottiefiles.com/). First, find an animatino you like > signup > click `export JSON` and save to your project. In vue you can save these under `assets` and then use `require('@/assets/animation.json')` to load them into the `LottieAnimator` as part of the `lottie-web-vue` component.
+You can browse and download animations from [LottieFiles](https://lottiefiles.com/). First, find an animation you like > signup > click `export JSON` and save to your project. In vue you can save these under `assets` and then use `require('@/assets/animation.json')` to load them into the `LottieAnimator` as part of the `lottie-web-vue` component.
 
 Example: [https://lottiefiles.com/38726-stagger-rainbow](https://lottiefiles.com/38726-stagger-rainbow)
 
-<img src="lottie-file.png" style="height: 400px"/>
+<img src="lottie-file.png" style="width: 300px"/>
 
 <br />
+<br />
+
 # Installation
 Add lottie-web-vue to your project package using:
 ```bash
@@ -52,6 +54,7 @@ Add to view file
 <template>
   <div>
     <lottie-animation
+      ref="anim"
       :animationData="require('@/assets/animation.json')"
     />
   </div>
@@ -103,7 +106,7 @@ The component has a number of props you can use to control the animation playbac
 Type: `Object`<br />
 Required: `true`<br />
 
-Include animation data from a require statement that imports the `.json` file from your assets folder. e.g. `require('@/assets/animation.json')` (save you animation as a.json file and put under assets in your project)
+Include animation data from a require statement that imports the `.json` file from your assets folder. e.g. `require('@/assets/animation.json')` (save you animation as a.json file and put under src/assets in your project)
 
 ### loop
 Type: `[Boolean, Number]`<br />
@@ -128,7 +131,6 @@ Required: `false`<br />
 Default: `1`
 
 The speed that the animation will play back.
-
 <br />
 
 ## Events
@@ -146,7 +148,7 @@ As each frame is played this event is fired. Warning - this fires very frequentl
 <br />
 
 ## Playback Methods
-You can call animation playback methods directly on the component if you wish to trigger playback on an event (i.e. when a user clicks the button, play the animation). You need to use the `this.$refs` syntax and give your `LottieAnimation` a `ref` id to call.
+You can call animation playback methods directly on the component if you wish to trigger playback on an event (i.e. when a user clicks the button, play the animation). You need to use the `this.$refs` syntax and give your LottieAnimation a `ref` id to use in the `this.$refs.[your-name-here]`.
 
 ```html
 <lottie-animation
