@@ -25,6 +25,10 @@ export default {
   mounted() {
     this.init()
   },
+  beforeDestroy() {
+    if (this.anim) 
+      this.anim.destroy()
+  },
   methods: {
     init() {
       let settings = {
