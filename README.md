@@ -219,3 +219,55 @@ export default {
 </script>
 ```
 
+## Vue 3 Composition API with Setup
+To use this in a Vue 3 project that uses the ```setup``` Composition API use the following:
+
+```html
+<template>
+  <div id="app">
+    <lottie-animation
+      ref="anim"
+      :animationData="require('@/assets/animation.json')"
+      :loop="true"
+      :autoPlay="true"
+      @loopComplete="loopComplete"
+      @complete="complete"
+      @enterFrame="enterFrame"
+    />
+  </div>
+</template>
+
+<script>
+import LottieAnimation from 'lottie-web-vue'
+
+export default {
+  setup() {
+    const anim = ref(null)
+
+    const loopComplete = () => {
+      console.log('loopComplete')
+    }
+
+    const complete = () => {
+      console.log('complete')
+    }
+
+    cont enterFrame = () => {
+      console.log('enterFrame')
+    }
+
+    onMounted(() => {
+      // the DOM element will be assigned to the ref after initial render
+      anim.value.play()
+    })
+
+    return {
+      anim, 
+      loopComplete,
+      complete,
+      enterFrame
+    }
+  }
+}
+</script>
+```
