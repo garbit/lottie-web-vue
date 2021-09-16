@@ -1,6 +1,6 @@
 {
   "name": "lottie-web-vue",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Airbnb Lottie-web component for Vue.js projects",
   "main": "dist/lottie-web-vue.umd.js",
   "module": "dist/lottie-web-vue.esm.js",
