@@ -252,7 +252,7 @@ export default {
       console.log('complete')
     }
 
-    cont enterFrame = () => {
+    const enterFrame = () => {
       console.log('enterFrame')
     }
 
