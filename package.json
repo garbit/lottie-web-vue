@@ -12,7 +12,8 @@
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/lottie-web-vue.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/lottie-web-vue.esm.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/lottie-web-vue.min.js"
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/lottie-web-vue.min.js",
+    "test": "echo \"No test specified\""
   },
   "repository": {
     "type": "git",
