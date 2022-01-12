@@ -17,11 +17,6 @@ export default {
       anim: null
     }
   },
-  watch: {
-    animationData: () => {
-      this.init()
-    }
-  },
   mounted() {
     this.init()
   },

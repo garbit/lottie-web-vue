@@ -239,8 +239,12 @@ To use this in a Vue 3 project that uses the ```setup``` Composition API use the
 
 <script>
 import LottieAnimation from 'lottie-web-vue'
+import { onMounted, ref } from 'vue'
 
 export default {
+  components: {
+      LottieAnimation
+  },
   setup() {
     const anim = ref(null)
 
