@@ -24,9 +24,9 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: "./src/LottieWebVuePlugin.ts",
+      entry: "./src/LottieAnimation.ts",
       formats: ["es", "cjs"],
-      name: "LottieWebVuePlugin",
+      name: "LottieAnimation",
       fileName: (format) => (format == "es" ? "index.js" : "index.cjs"),
     },
     rollupOptions: {
