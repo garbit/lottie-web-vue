@@ -210,10 +210,10 @@ Using ```this.$refs.anim.setDirection(-1)``` you can reverse your animation. You
 ### getDuration [inFrames: true/false]
 Using ```this.$refs.anim.getDuration(true)``` you can retrieve the current duration of the animation in frames or seconds (false). If you pass true, function returns duration in frames, if false, duration is passed back in seconds. Default is false (returned in seconds).
 - inFrames: boolean to request current duration in either frames (inFrames: true) or in seconds (inFrames: false)
-<br />
-
 ### destroy
 Using ```this.$refs.anim.destroy()``` you can destroy the animation from the DOM.
+
+<br />
 
 ## Options API Example
 See here for an example:
@@ -256,7 +256,6 @@ export default {
 }
 </script>
 ```
-
 ## Vue 3 Composition API with Setup
 To use this in a Vue 3 project that uses the ```setup``` Composition API use the following:
 
