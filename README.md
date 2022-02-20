@@ -102,6 +102,8 @@ Full available props and events:
   @loopComplete="loopComplete"
   @complete="complete"
   @enterFrame="enterFrame"
+  @segmentStart="segmentStart"
+  @stopped="stopped"
 />
 ```
 
