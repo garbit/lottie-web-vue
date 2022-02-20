@@ -35,6 +35,21 @@ yarn add lottie-web-vue
 
 Add to global scope
 
+## Vue 3.x
+```js
+import { createApp } from "vue";
+import App from "./App.vue";
+import LottieAnimation from "lottie-web-vue";
+
+const app = createApp(App);
+
+app.use(LottieAnimation);
+
+app.mount("#app");
+
+```
+
+## Vue 2.x
 ```js
 import Vue from 'vue'
 import LottieAnimation from 'lottie-web-vue'
@@ -274,4 +289,32 @@ export default {
   }
 }
 </script>
+```
+
+## Typescript Support + Setup Example
+When using the ```<script setup>``` attribute when delcaring your ts component you can use the following:
+
+```html
+<script setup>
+import { onMounted, ref } from 'vue'
+import WatermelonJSON from "./assets/watermelon.json";
+
+let anim = ref();
+
+onMounted(() => {
+  // the DOM element will be assigned to the ref after initial render
+  anim.value.play()
+})
+
+</script>
+
+<template>
+  <lottie-web-vue
+    :animation-data="WatermelonJSON"
+    :auto-play="true"
+    :loop="true"
+    :speed="1"
+    ref="anim"
+  />
+</template>
 ```

@@ -1,1 +1,1 @@
-export { default as LottieWebVue } from "./lottie-web-vue.vue";
+export { default as LottieAnimation } from "./lottie-web-vue.vue";
