@@ -309,7 +309,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <lottie-web-vue
+  <lottie-animation
     :animation-data="WatermelonJSON"
     :auto-play="true"
     :loop="true"
