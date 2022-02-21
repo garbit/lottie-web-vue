@@ -68,6 +68,20 @@ app.mount("#app");
 
 ```
 
+for [volar Type-Checking](https://github.com/johnsoncodehk/volar/tree/master/extensions/vscode-vue-language-features#usage) need add:
+
+```ts
+// components.d.ts
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+    LottieAnimation: typeof import('lottie-web-vue')['LottieAnimation']
+  }
+}
+
+export {}
+```
+
+
 ## Vue 2.x
 Please install ```v1.2.1``` of the plugin (this will no longer be maintained)
 ```js
