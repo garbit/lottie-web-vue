@@ -34,6 +34,7 @@ export default defineConfig({
       output: {
         globals: {
           vue: "Vue",
+          'lottie-web': 'Lottie',
         },
       },
     },
