@@ -1,12 +1,12 @@
 {
   "name": "lottie-web-vue",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Airbnb Lottie-web component for Vue.js projects",
   "type": "module",
   "exports": {
     ".": "./dist/index.js"
   },
-  "types": "./dist/LottieWebVuePLugin.d.ts",
+  "types": "./dist/LottieAnimation.d.ts",
   "files": [
     "dist"
   ],

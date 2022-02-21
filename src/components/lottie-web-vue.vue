@@ -57,19 +57,19 @@ function init(container: Element) {
   });
 }
 
-function play() {
+function play(): void {
   if (anim.value) anim.value.play();
 }
 
-function stop() {
+function stop(): void {
   if (anim.value) anim.value.stop();
 }
 
-function pause() {
+function pause(): void {
   if (anim.value) anim.value.pause();
 }
 
-function setSpeed(speed: number) {
+function setSpeed(speed: number): void {
   if (anim.value) anim.value.setSpeed(speed);
 }
 
@@ -77,22 +77,23 @@ function setDirection(direction: AnimationDirection) {
   if (anim.value) anim.value.setDirection(direction);
 }
 
-function getDuration(inFrames: boolean) {
+function getDuration(inFrames: boolean): number {
   if (anim.value) return anim.value.getDuration(inFrames);
+  return 0;
 }
 
-function goToAndStop(position: number, isFrame: boolean) {
+function goToAndStop(position: number, isFrame: boolean): void {
   if (anim.value) {
     anim.value.goToAndStop(position, isFrame);
     emit("stopped");
   }
 }
 
-function goToAndPlay(position: number, isFrame: boolean) {
+function goToAndPlay(position: number, isFrame: boolean): void {
   if (anim.value) anim.value.goToAndPlay(position, isFrame);
 }
 
-function destroy() {
+function destroy(): void {
   if (anim.value) anim.value.destroy();
 }
 
