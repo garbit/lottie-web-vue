@@ -1,9 +1,11 @@
-<div style="text-align: center">
+<div style="text-align: center" align="center">
   <h1>Lottie-Web-Vue</h1>
-  <img src="lottie-web-vue-animation.gif" style="height: 300px; width: 300px"/>
+  <img src="lottie-web-vue-animation.gif" style="width: 50%"/>
   
-  [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
   [![npm](https://img.shields.io/npm/dt/lottie-web-vue.svg?style=flat-square)](https://www.npmjs.com/package/lottie-web-vue)
+  ![npm](https://img.shields.io/npm/dw/lottie-web-vue)
+  ![GitHub contributors](https://img.shields.io/github/contributors/garbit/lottie-web-vue?color=%23007ec6)
+  [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
   > Lottie-web-vue is an Airbnb Lottie-web component for Vue.js projects
 </div>
@@ -32,7 +34,9 @@ You can browse and download animations from [LottieFiles](https://lottiefiles.co
 
 Example: [https://lottiefiles.com/38726-stagger-rainbow](https://lottiefiles.com/38726-stagger-rainbow)
 
-<img src="lottie-file.png" style="width: 300px"/>
+<p align="center">
+  <img src="lottie-file.png" style="width: 50%" />
+</p>
 
 <br />
 <br />
