@@ -103,26 +103,36 @@ new Vue({
 # Usage
 Basic:
 ```html
-<lottie-animation
-  ref="anim"
-  :animationData="require('@/assets/animation.json')"
-/>
+<script setup>
+  import animation from '@/assets/animation.json';
+</script>
+<template>
+  <lottie-animation
+    ref="anim"
+    :animationData="animation"
+  />
+</template>
 ```
 
 Full available props and events:
 ```html
-<lottie-animation
-  ref="anim"
-  :animationData="require('@/assets/animation.json')"
-  :loop="false"
-  :autoPlay="false"
-  :speed="1"
-  @loopComplete="loopComplete"
-  @complete="complete"
-  @enterFrame="enterFrame"
-  @segmentStart="segmentStart"
-  @stopped="stopped"
-/>
+<script setup>
+  import animation from '@/assets/animation.json';
+</script>
+<template>
+  <lottie-animation
+    ref="anim"
+    :animationData="animation"
+    :loop="false"
+    :autoPlay="false"
+    :speed="1"
+    @loopComplete="loopComplete"
+    @complete="complete"
+    @enterFrame="enterFrame"
+    @segmentStart="segmentStart"
+    @stopped="stopped"
+  />
+</template>
 ```
 
 ## Props
@@ -134,7 +144,7 @@ The component has a number of props you can use to control the animation playbac
 Type: `Object`<br />
 Required: `true`<br />
 
-Include animation data from a require statement that imports the `.json` file from your assets folder. e.g. `require('@/assets/animation.json')` (save you animation as a.json file and put under src/assets in your project)
+Include animation data from an import or require statement that imports the `.json` file from your assets folder. e.g. `require('@/assets/animation.json')` (save you animation as a.json file and put under src/assets in your project)
 
 ### loop
 Type: `[Boolean, Number]`<br />
@@ -184,10 +194,15 @@ Playing the animation using ```goToAndStop()``` function will raise an event onc
 You can call animation playback methods directly on the component if you wish to trigger playback on an event (i.e. when a user clicks the button, play the animation). You need to use the `this.$refs` syntax and give your LottieAnimation a `ref` id to use in the `this.$refs.[your-name-here]`.
 
 ```html
-<lottie-animation
-      ref="anim"
-      :animationData="require('@/assets/animation.json')"
-/>
+<script setup>
+  import animation from '@/assets/animation.json';
+</script>
+<template>
+  <lottie-animation
+    ref="anim"
+    :animationData="animation"
+  />
+</template>
 ```
 Once your component (in the parent view) has a `ref` id you can then use this in a method of your choosing:
 
@@ -279,12 +294,26 @@ export default {
 ## Vue 3 Composition API with Setup
 To use this in a Vue 3 project that uses the ```setup``` Composition API use the following:
 
+### Script setup
+```html
+<script setup>
+  import animation from '@/assets/animation.json';
+</script>
+<template>
+  <lottie-animation
+    ref="anim"
+    :animationData="animation"
+  />
+</template>
+```
+
+### Setup
 ```html
 <template>
   <div id="app">
     <lottie-animation
       ref="anim"
-      :animationData="require('@/assets/animation.json')"
+      :animationData="animation"
       :loop="true"
       :autoPlay="true"
       @loopComplete="loopComplete"
@@ -297,6 +326,8 @@ To use this in a Vue 3 project that uses the ```setup``` Composition API use the
 <script>
 import LottieAnimation from 'lottie-web-vue'
 import { onMounted, ref } from 'vue'
+import animation from '@/assets/animation.json';
+
 
 export default {
   components: {
@@ -339,7 +370,7 @@ When using the ```<script setup>``` attribute when delcaring your ts component y
 ```html
 <script setup>
 import { onMounted, ref } from 'vue'
-import WatermelonJSON from "./assets/watermelon.json";
+import WatermelonJSON from "@/assets/watermelon.json";
 
 let anim = ref();
 
