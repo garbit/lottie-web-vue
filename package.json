@@ -1,22 +1,11 @@
 {
   "name": "lottie-web-vue",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Airbnb Lottie-web component for Vue.js projects",
   "type": "module",
-  "exports": {
-    ".": "./dist/index.js"
-  },
-  "types": "./dist/LottieAnimation.d.ts",
   "files": [
     "dist"
   ],
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview --port 5050",
-    "typecheck": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/garbit/lottie-web-vue.git"
@@ -46,23 +35,32 @@
     "url": "https://github.com/garbit/lottie-web-vue/issues"
   },
   "homepage": "https://github.com/garbit/lottie-web-vue#readme",
+  "main": "./dist/lottie-web-vue.umd.cjs",
+  "module": "./dist/lottie-web-vue.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/lottie-web-vue.js",
+      "require": "./dist/lottie-web-vue.umd.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "types": "vue-tsc ",
+    "preview": "vite preview"
+  },
   "dependencies": {
-    "lottie-web": "^5.8.1",
-    "vue": "^3.2.29"
+    "lottie-web": "^5.12.2",
+    "path": "^0.12.7",
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.1.0",
-    "@types/node": "^16.11.22",
-    "@vitejs/plugin-vue": "^2.1.0",
-    "@vue/eslint-config-prettier": "^7.0.0",
-    "@vue/eslint-config-typescript": "^10.0.0",
-    "@vue/tsconfig": "^0.1.3",
-    "eslint": "^8.5.0",
-    "eslint-plugin-vue": "^8.2.0",
-    "prettier": "^2.5.1",
-    "rollup-plugin-typescript2": "^0.31.2",
-    "typescript": "~4.5.5",
-    "vite": "^2.7.13",
-    "vue-tsc": "^0.31.1"
+    "@types/node": "^20.3.1",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vue-tsc": "^1.4.2"
   }
 }
