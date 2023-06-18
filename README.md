@@ -56,36 +56,6 @@ To use Vue 2.x use:
 npm install lottie-web-vue@1.2.1 
 ```
 
-## Add to global scope
-
-## Vue 3.x
-```js
-import { createApp } from "vue";
-import App from "./App.vue";
-import LottieAnimation from "lottie-web-vue";
-
-const app = createApp(App);
-
-app.use(LottieAnimation);
-
-app.mount("#app");
-
-```
-
-for [volar Type-Checking](https://github.com/johnsoncodehk/volar/tree/master/extensions/vscode-vue-language-features#usage) need add:
-
-```ts
-// components.d.ts
-declare module '@vue/runtime-core' {
-  export interface GlobalComponents {
-    LottieAnimation: typeof import('lottie-web-vue')['LottieAnimation']
-  }
-}
-
-export {}
-```
-
-
 ## Vue 2.x
 Please install ```v1.2.1``` of the plugin (this will no longer be maintained)
 ```js
@@ -103,35 +73,83 @@ new Vue({
 # Usage
 Basic:
 ```html
-<script setup>
-  import animation from '@/assets/animation.json';
+<script setup lang="ts">
+  import { onMounted, ref } from "vue"
+  import { LottieAnimation } from "lottie-web-vue"
+  import WatermelonJSON from "./assets/watermelon.json"
+
+  let anim = ref()
+
+  onMounted(() => {
+    setTimeout(() => {
+      console.log(anim.value.goToAndPlay(150, true))
+      anim.value
+    }, 500)
+  })
 </script>
 <template>
-  <lottie-animation
-    ref="anim"
-    :animationData="animation"
-  />
+  <LottieAnimation 
+    :animation-data="WatermelonJSON"
+    :auto-play="true"
+    :loop="true"
+    :speed="1"
+    ref="anim" />
 </template>
 ```
 
 Full available props and events:
 ```html
 <script setup>
-  import animation from '@/assets/animation.json';
+  import { onMounted, ref } from "vue"
+import { LottieAnimation } from "lottie-web-vue"
+import WatermelonJSON from "./assets/watermelon.json"
+
+let anim = ref()
+
+onMounted(() => {
+  setTimeout(() => {
+    console.log(anim.value.goToAndPlay(150, true))
+    anim.value
+  }, 500)
+})
+
+// called after each loop
+const loopComplete = () => {
+  console.log('Loop complete')
+}
+
+// called after first loop
+const complete = () => {
+  console.log('First loop complete')
+}
+
+// called after first frame entered
+const enterFrame = () => {
+  console.log('Entered first frame')
+}
+
+// called after segment started
+const segmentStart = () => {
+  console.log('Segment started')
+}
+
+// called after animation stopped
+const stopped = () => {
+  console.log('Stopped')
+}
 </script>
 <template>
-  <lottie-animation
+  <LottieAnimation
     ref="anim"
-    :animationData="animation"
-    :loop="false"
-    :autoPlay="false"
+    :animation-data="WatermelonJSON"
+    :loop="true"
+    :auto-play="true"
     :speed="1"
     @loopComplete="loopComplete"
     @complete="complete"
     @enterFrame="enterFrame"
     @segmentStart="segmentStart"
-    @stopped="stopped"
-  />
+    @stopped="stopped"/>
 </template>
 ```
 
@@ -195,10 +213,11 @@ You can call animation playback methods directly on the component if you wish to
 
 ```html
 <script setup>
-  import animation from '@/assets/animation.json';
+  import { LottieAnimation } from "lottie-web-vue"
+  import WatermelonJSON from "./assets/watermelon.json"
 </script>
 <template>
-  <lottie-animation
+  <LottieAnimation
     ref="anim"
     :animationData="animation"
   />
@@ -206,13 +225,13 @@ You can call animation playback methods directly on the component if you wish to
 ```
 Once your component (in the parent view) has a `ref` id you can then use this in a method of your choosing:
 
-```js
+```html
 ... // in your parent .vue file
-methods: {
-  buttonClicked() {
+<script setup lang="ts">
+  const buttonClicked = () => {
     this.$refs.anim.play() // .play, .pause, .stop available
   }
-}
+</script>
 ```
 ### Play
 Using `this.$refs.anim.play()` will play the animation. 
@@ -255,7 +274,7 @@ See here for an example:
 ```html
 <template>
   <div id="app">
-    <lottie-animation
+    <LottieAnimation
       ref="anim"
       :animationData="require('@/assets/animation.json')"
       :loop="true"
@@ -291,103 +310,37 @@ export default {
 }
 </script>
 ```
-## Vue 3 Composition API with Setup
+## Vue 3 Composition API with Setup + Typescript
 To use this in a Vue 3 project that uses the ```setup``` Composition API use the following:
 
 ### Script setup
 ```html
-<script setup>
-  import animation from '@/assets/animation.json';
-</script>
-<template>
-  <lottie-animation
-    ref="anim"
-    :animationData="animation"
-  />
-</template>
-```
+<script setup lang="ts">
+import { onMounted, ref } from "vue"
+import { LottieAnimation } from "lottie-web-vue"
+import WatermelonJSON from "./assets/watermelon.json"
 
-### Setup
-```html
-<template>
-  <div id="app">
-    <lottie-animation
-      ref="anim"
-      :animationData="animation"
-      :loop="true"
-      :autoPlay="true"
-      @loopComplete="loopComplete"
-      @complete="complete"
-      @enterFrame="enterFrame"
-    />
-  </div>
-</template>
-
-<script>
-import LottieAnimation from 'lottie-web-vue'
-import { onMounted, ref } from 'vue'
-import animation from '@/assets/animation.json';
-
-
-export default {
-  components: {
-      LottieAnimation
-  },
-  setup() {
-    const anim = ref(null)
-
-    const loopComplete = () => {
-      console.log('loopComplete')
-    }
-
-    const complete = () => {
-      console.log('complete')
-    }
-
-    const enterFrame = () => {
-      console.log('enterFrame')
-    }
-
-    onMounted(() => {
-      // the DOM element will be assigned to the ref after initial render
-      anim.value.play()
-    })
-
-    return {
-      anim, 
-      loopComplete,
-      complete,
-      enterFrame
-    }
-  }
-}
-</script>
-```
-
-## Typescript Support + Setup Example
-When using the ```<script setup>``` attribute when delcaring your ts component you can use the following:
-
-```html
-<script setup>
-import { onMounted, ref } from 'vue'
-import WatermelonJSON from "@/assets/watermelon.json";
-
-let anim = ref();
+let anim = ref()
 
 onMounted(() => {
-  // the DOM element will be assigned to the ref after initial render
-  anim.value.play()
+  setTimeout(() => {
+    console.log(anim.value.goToAndPlay(150, true))
+    anim.value
+  }, 500)
 })
 
 </script>
-
 <template>
-  <lottie-animation
-    :animation-data="WatermelonJSON"
-    :auto-play="true"
-    :loop="true"
-    :speed="1"
+  <LottieAnimation
     ref="anim"
-  />
+    :animation-data="WatermelonJSON"
+    :loop="true"
+    :auto-play="true"
+    :speed="1"
+    @loopComplete="loopComplete"
+    @complete="complete"
+    @enterFrame="enterFrame"
+    @segmentStart="segmentStart"
+    @stopped="stopped"/>
 </template>
 ```
