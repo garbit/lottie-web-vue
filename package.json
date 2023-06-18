@@ -1,6 +1,5 @@
 {
   "name": "lottie-web-vue",
-  "private": true,
   "version": "2.0.7",
   "description": "Airbnb Lottie-web component for Vue.js projects",
   "type": "module",
