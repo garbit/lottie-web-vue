@@ -22,6 +22,7 @@ export default defineConfig({
         // for externalized deps
         globals: {
           vue: "Vue",
+          'lottie-web': 'Lottie',
         },
       },
     }
