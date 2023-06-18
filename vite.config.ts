@@ -1,47 +1,29 @@
-import { fileURLToPath, URL } from "url";
-import typescript2 from "rollup-plugin-typescript2";
-
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import { defineConfig } from 'vite'
+import { resolve } from "path"
+import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    typescript2({
-      check: false,
-      include: ["src/components/*.vue"],
-      tsconfigOverride: {
-        compilerOptions: {
-          sourceMap: true,
-          declaration: true,
-          declarationMap: true,
-        },
-      },
-      exclude: ["vite.config.ts", "main.ts"],
-    }),
-  ],
+  plugins: [vue()],
   build: {
-    cssCodeSplit: false,
     lib: {
-      entry: "./src/LottieAnimation.ts",
-      formats: ["es", "cjs"],
+      // src/indext.ts is where we have exported the component(s)
+      entry: resolve(__dirname, "src/index.ts"),
       name: "LottieAnimation",
-      fileName: (format) => (format == "es" ? "index.js" : "index.cjs"),
+      // the name of the output files when the build is run
+      fileName: "lottie-web-vue",
     },
     rollupOptions: {
+      // make sure to externalize deps that shouldn't be bundled
+      // into your library
       external: ["vue"],
       output: {
+        // Provide global variables to use in the UMD build
+        // for externalized deps
         globals: {
           vue: "Vue",
         },
-        exports: "named",
       },
-    },
-  },
-  resolve: {
-    alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
-    },
-  },
-});
+    }
+  }
+})
