@@ -374,6 +374,8 @@ onMounted(() => {
 
 # Development
 
+Requires Node >= 20 (see [.nvmrc](.nvmrc) — `nvm use` picks it up). Dependency updates arrive weekly via Dependabot and are gated by the full CI suite.
+
 ```bash
 npm install          # install dependencies
 npm run dev          # demo app with hot reload
