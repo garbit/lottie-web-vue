@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.1 (2026-08-01)
+
+### Changed
+
+- Documentation website launched at
+  [garbit.github.io/lottie-web-vue](https://garbit.github.io/lottie-web-vue/)
+  with guides, full API reference, and live interactive demos. The
+  package `homepage` field now points there (this is what the npm
+  sidebar links to). No runtime changes.
+
 ## 3.0.0 (2026-08-01)
 
 ### Breaking
