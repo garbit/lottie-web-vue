@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- watermelon slice: rind, pith, flesh, seeds -->
+  <path d="M6 46 A58 58 0 0 0 122 46 Z" fill="#1f7a3d"/>
+  <path d="M13 46 A51 51 0 0 0 115 46 Z" fill="#d8f2c2"/>
+  <path d="M19 46 A45 45 0 0 0 109 46 Z" fill="#ff5757"/>
+  <ellipse cx="46" cy="64" rx="4" ry="6" transform="rotate(-25 46 64)" fill="#3a2313"/>
+  <ellipse cx="64" cy="74" rx="4" ry="6" fill="#3a2313"/>
+  <ellipse cx="82" cy="64" rx="4" ry="6" transform="rotate(25 82 64)" fill="#3a2313"/>
+</svg>

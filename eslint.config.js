@@ -3,7 +3,7 @@ import { defineConfigWithVueTs, vueTsConfigs } from "@vue/eslint-config-typescri
 
 export default defineConfigWithVueTs(
   {
-    ignores: ["dist/", "node_modules/", "playground/dist/", "playground/node_modules/", "playwright-report/", "test-results/"],
+    ignores: ["dist/", "node_modules/", "playground/dist/", "playground/node_modules/", "playwright-report/", "test-results/", "docs/.vitepress/cache/", "docs/.vitepress/dist/"],
   },
   pluginVue.configs["flat/essential"],
   vueTsConfigs.recommended,
