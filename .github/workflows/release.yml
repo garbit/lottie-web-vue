@@ -14,11 +14,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # NOTE: no registry-url here — it writes an .npmrc with an (empty)
+      # _authToken that shadows OIDC Trusted Publishing and breaks publish
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          registry-url: https://registry.npmjs.org
 
       # Trusted Publishing needs a recent npm on the runner
       - run: npm install -g npm@latest
