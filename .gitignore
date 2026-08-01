@@ -35,3 +35,7 @@ playground/package-lock.json
 # playwright
 test-results/
 playwright-report/
+
+# vitepress
+docs/.vitepress/cache
+docs/.vitepress/dist

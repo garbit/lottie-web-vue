@@ -1,0 +1,138 @@
+# lottie-web-vue — full reference for LLMs and coding agents
+
+lottie-web-vue is a Vue 3 component that renders Lottie animations (Adobe After
+Effects compositions exported as JSON with the Bodymovin plugin) using Airbnb's
+lottie-web SVG renderer.
+
+Package: lottie-web-vue (npm) · Version: 3.x · License: MIT · Author: Andy Garbett
+Repository: https://github.com/garbit/lottie-web-vue
+Docs: https://garbit.github.io/lottie-web-vue/
+Peer dependency: vue ^3.3.0 · Dependency: lottie-web ^5.12.2
+Vue 2 projects must use lottie-web-vue@1.2.1 (unmaintained).
+
+## Install
+
+    npm install lottie-web-vue
+
+lottie-web is installed automatically as a regular dependency.
+
+## Imports and registration
+
+Named or default import — both are the same component object:
+
+    import { LottieAnimation } from "lottie-web-vue"   // named
+    import LottieAnimation from "lottie-web-vue"        // default
+
+The default export is also a Vue plugin. Global registration:
+
+    import { createApp } from "vue"
+    import LottieAnimation from "lottie-web-vue"
+    createApp(App).use(LottieAnimation).mount("#app")   // registers <LottieAnimation> app-wide
+
+## Minimal usage
+
+    <script setup lang="ts">
+    import { LottieAnimation } from "lottie-web-vue"
+    import AnimationJSON from "@/assets/animation.json"  // Lottie JSON file
+    </script>
+
+    <template>
+      <LottieAnimation :animation-data="AnimationJSON" :auto-play="true" :loop="true" />
+    </template>
+
+## Props
+
+- animationData: Object, REQUIRED. The parsed Lottie animation JSON (import the
+  .json file and pass it). The component deep-clones it (JSON.parse/stringify)
+  before giving it to lottie-web, so one imported JSON can feed many instances.
+- loop: Boolean | Number, default false. true = loop forever, false = play once,
+  integer N = play N times then stop.
+- autoPlay: Boolean, default true. false = nothing plays until play() is called.
+- speed: Number, default 1. Playback rate (2 = double, 0.5 = half).
+
+REACTIVITY RULE: only `speed` is watched after mount. Changing animationData,
+loop, or autoPlay on a mounted component does NOTHING. To apply a new value,
+force a remount with :key:
+
+    <LottieAnimation :key="animKey" :animation-data="AnimationJSON" :loop="loop" />
+    // increment animKey when loop/autoPlay/animationData changes
+
+## Events
+
+All emits carry no payload. Bind with kebab-case in templates.
+
+- @complete — playback finished (only fires when loop is false)
+- @loop-complete — each loop finished
+- @enter-frame — every rendered frame (~60×/s; throttle handlers)
+- @segment-start — a new animation segment began
+- @stopped — emitted by this component after goToAndStop() lands on its frame
+
+## Methods (exposed via template ref)
+
+    const anim = ref<InstanceType<typeof LottieAnimation>>()
+    // template: <LottieAnimation ref="anim" ... />
+
+All methods no-op safely before the animation initialises (getDuration returns 0).
+
+- play(): void — start/resume from current frame
+- pause(): void — pause, holding current frame
+- stop(): void — stop and rewind to first frame
+- setSpeed(speed: number): void — set playback rate
+- setDirection(direction: 1 | -1): void — 1 forwards, -1 reverse (lottie-web AnimationDirection)
+- getDuration(inFrames: boolean): number — duration in frames (true) or seconds (false); 0 before init
+- goToAndStop(position: number, isFrame: boolean): void — jump and stop; emits @stopped
+- goToAndPlay(position: number, isFrame: boolean): void — jump and play
+- destroy(): void — remove from DOM; called AUTOMATICALLY on unmount, rarely needed
+
+Options API: same methods via this.$refs.anim.play() etc.
+
+## Rendering details
+
+- Renderer is lottie-web's SVG renderer (hard-coded).
+- The component's template is a single <div>; the SVG is injected into it.
+- Attributes, classes, and styles on <LottieAnimation> fall through to that div —
+  size the animation by sizing the div with CSS. There are no slots.
+- SSR-safe: lottie-web is only touched in onMounted, so renderToString works.
+
+## CDN / UMD (no bundler)
+
+Since 3.0.0, lottie-web is NOT bundled. Script order matters — vue, then
+lottie-web (creates the `lottie` global), then this library:
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <script src="https://unpkg.com/lottie-web-vue/dist/lottie-web-vue.umd.cjs"></script>
+
+The UMD global is `LottieAnimation`; the component/plugin is
+`LottieAnimation.default` (also `LottieAnimation.LottieAnimation`).
+
+## Migrating 2.x → 3.0.0
+
+- Bundler users: no code changes.
+- UMD/CDN users: must load lottie-web before the library (see above).
+- vue moved to peerDependencies (^3.3.0).
+- Fixed in 3.0.0: default import no longer undefined; app.use() registration
+  works; speed prop is reactive; animation destroyed exactly once on unmount.
+- Known limitation (unchanged from 2.x): animationData/loop/autoPlay are not
+  reactive after mount — use the :key remount pattern.
+
+## Common patterns
+
+Play on user interaction:
+
+    const anim = ref<InstanceType<typeof LottieAnimation>>()
+    function onClick() {
+      anim.value?.stop()   // rewind
+      anim.value?.play()
+    }
+    // <LottieAnimation ref="anim" :animation-data="J" :auto-play="false" />
+
+Reactive speed slider (no remount needed):
+
+    const speed = ref(1)
+    // <input type="range" v-model.number="speed" min="0.1" max="3" step="0.1" />
+    // <LottieAnimation :animation-data="J" :speed="speed" :loop="true" />
+
+Jump to a frame on mount:
+
+    onMounted(() => { anim.value?.goToAndPlay(150, true) })

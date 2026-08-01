@@ -1,0 +1,34 @@
+# lottie-web-vue
+
+> Vue 3 component for playing Airbnb Lottie-web animations (After Effects animations exported as JSON with the Bodymovin plugin). Install with `npm install lottie-web-vue`. TypeScript-ready, SSR-safe, ~21 kB unpacked; `lottie-web` is a regular dependency and `vue ^3.3.0` a peer dependency.
+
+Quick facts for coding agents:
+
+- Import: `import { LottieAnimation } from "lottie-web-vue"` (named) or `import LottieAnimation from "lottie-web-vue"` (default; also a Vue plugin — `app.use(LottieAnimation)` registers `<LottieAnimation>` globally).
+- Props: `animationData` (Object, required — the parsed Lottie JSON), `loop` (Boolean | Number, default false), `autoPlay` (Boolean, default true), `speed` (Number, default 1). Only `speed` is reactive after mount; remount via `:key` to change the others.
+- Events (no payloads): `@complete`, `@loopComplete`, `@enterFrame`, `@segmentStart`, `@stopped`.
+- Methods (via template ref, e.g. `anim.value?.play()`): `play()`, `pause()`, `stop()`, `setSpeed(speed)`, `setDirection(1 | -1)`, `getDuration(inFrames)`, `goToAndStop(position, isFrame)`, `goToAndPlay(position, isFrame)`, `destroy()` (automatic on unmount).
+- Typed ref: `const anim = ref<InstanceType<typeof LottieAnimation>>()`.
+- Renderer is SVG; attrs/classes fall through to the single wrapper div (size it with CSS); no slots.
+- A complete plain-text API reference is available at /lottie-web-vue/llms-full.txt
+
+## Guide
+
+- [Getting Started](https://garbit.github.io/lottie-web-vue/guide/getting-started): install, register locally or globally, first animation
+- [Finding Animations](https://garbit.github.io/lottie-web-vue/guide/animations): LottieFiles / Bodymovin export workflow
+- [Composition API](https://garbit.github.io/lottie-web-vue/guide/composition-api): script setup, typed refs, reactive speed
+- [Options API](https://garbit.github.io/lottie-web-vue/guide/options-api): this.$refs usage
+- [CDN / UMD Usage](https://garbit.github.io/lottie-web-vue/guide/cdn-umd): script-tag setup; lottie-web must load first (3.0.0+)
+- [Migrating from 2.x](https://garbit.github.io/lottie-web-vue/guide/migrating): 3.0.0 breaking changes and fixes; Vue 2 uses lottie-web-vue@1.2.1
+
+## API Reference
+
+- [Props](https://garbit.github.io/lottie-web-vue/api/props): animationData, loop, autoPlay, speed; reactivity rules
+- [Events](https://garbit.github.io/lottie-web-vue/api/events): complete, loopComplete, enterFrame, segmentStart, stopped
+- [Methods](https://garbit.github.io/lottie-web-vue/api/methods): play, pause, stop, setSpeed, setDirection, getDuration, goToAndStop, goToAndPlay, destroy
+
+## Source
+
+- [GitHub repository](https://github.com/garbit/lottie-web-vue)
+- [npm package](https://www.npmjs.com/package/lottie-web-vue)
+- [Changelog](https://github.com/garbit/lottie-web-vue/blob/main/CHANGELOG.md)
