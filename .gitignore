@@ -26,3 +26,12 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# playground build artifacts
+playground/node_modules
+playground/dist
+playground/package-lock.json
+
+# playwright
+test-results/
+playwright-report/

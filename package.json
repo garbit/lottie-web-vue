@@ -1,6 +1,6 @@
 {
   "name": "lottie-web-vue",
-  "version": "2.0.7",
+  "version": "3.0.0",
   "description": "Airbnb Lottie-web component for Vue.js projects",
   "type": "module",
   "files": [
@@ -42,25 +42,54 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/lottie-web-vue.js",
       "require": "./dist/lottie-web-vue.umd.cjs"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vue-tsc --emitDeclarationOnly",
-    "types": "vue-tsc ",
+    "build": "vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:pack": "node scripts/smoke-test.mjs",
+    "test:e2e": "playwright test",
+    "lint": "eslint .",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build && npm run test:pack && npm run test:e2e",
+    "prepack": "npm run build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "lottie-web": "^5.12.2",
-    "path": "^0.12.7",
-    "vue": "^3.2.47"
+    "lottie-web": "^5.12.2"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
   },
   "devDependencies": {
-    "@types/node": "^20.3.1",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.9",
-    "vue-tsc": "^1.4.2"
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^24.13.3",
+    "@vitejs/plugin-vue": "^6.0.8",
+    "@vue/eslint-config-typescript": "^14.9.0",
+    "@vue/test-utils": "^2.4.11",
+    "eslint": "^9.39.5",
+    "eslint-plugin-vue": "^10.10.0",
+    "jsdom": "^30.0.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.65.0",
+    "vite": "^7.3.6",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.10",
+    "vue": "^3.5.40",
+    "vue-tsc": "^3.3.9"
   }
 }

@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
 import WatermelonJSON from "./assets/watermelon.json"
-import LottieAnimation from './components/lottie-web-vue.vue'
+import LottieAnimation from "./components/lottie-web-vue.vue"
 
-let anim = ref()
+const anim = ref()
 
 onMounted(() => {
   setTimeout(() => {
-    console.log(anim.value.goToAndPlay(150, true))
-    anim.value
+    anim.value.goToAndPlay(150, true)
   }, 500)
 })
 </script>

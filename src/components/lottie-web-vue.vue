@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, shallowRef, watch, onMounted, onBeforeUnmount } from "vue";
 import Lottie, {
   type AnimationDirection,
   type AnimationItem,
@@ -7,7 +7,8 @@ import Lottie, {
 
 const animation = ref<Element>();
 
-let anim = ref<AnimationItem>();
+// shallowRef: the AnimationItem must not be wrapped in a deep reactive proxy
+const anim = shallowRef<AnimationItem>();
 
 const props = defineProps({
   animationData: { type: Object, required: true },
@@ -31,6 +32,13 @@ onMounted(() => {
 onBeforeUnmount(() => {
   destroy();
 });
+
+watch(
+  () => props.speed,
+  (speed) => {
+    if (anim.value) anim.value.setSpeed(speed);
+  }
+);
 
 function init(container: Element) {
   anim.value = Lottie.loadAnimation({
@@ -96,10 +104,6 @@ function goToAndPlay(position: number, isFrame: boolean): void {
 function destroy(): void {
   if (anim.value) anim.value.destroy();
 }
-
-onBeforeUnmount(() => {
-  if (anim.value) anim.value.destroy();
-});
 
 defineExpose({
   play,

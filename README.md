@@ -5,7 +5,7 @@
   [![npm](https://img.shields.io/npm/dt/lottie-web-vue.svg?style=flat-square)](https://www.npmjs.com/package/lottie-web-vue)
   ![npm](https://img.shields.io/npm/dw/lottie-web-vue)
   ![GitHub contributors](https://img.shields.io/github/contributors/garbit/lottie-web-vue?color=%23007ec6)
-  [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+  [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
   > Lottie-web-vue is an Airbnb Lottie-web component for Vue.js projects
 </div>
@@ -14,11 +14,21 @@
 Airbnb's [Lottie-web](https://github.com/airbnb/lottie-web) is a library for rendering animations exported from Adobe After Effects using the BodyMovin plugin. This package allows you to easily import animation files (available in .json format) into your Vue.js project.
 
 # Vue 3 + Typescript Support
-With latest ```lottie-web-vue  2.x.x``` release the library now supports Vue 3 + Typescript typing! If you are using Vue 2.x **ensure to use version 1.2.1** (see below)
+```lottie-web-vue``` supports Vue 3 + Typescript typing. If you are using Vue 2.x **ensure to use version 1.2.1** (see below)
 
 ```js
 npm install lottie-web-vue
 ```
+
+# ⚠️ Breaking change in 3.0.0 (UMD / CDN users only)
+`lottie-web` is no longer bundled into the library output — the published package went from ~752 kB to ~21 kB. **If you consume the UMD build via a `<script>` tag you must load `lottie-web` first** so the `lottie` global exists:
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+<script src="https://unpkg.com/lottie-web-vue/dist/lottie-web-vue.umd.cjs"></script>
+```
+
+If you use a bundler (Vite, webpack, etc.) nothing changes — `lottie-web` is installed automatically and resolved from `node_modules`. See [CHANGELOG.md](CHANGELOG.md) for the full list of changes.
 
 # Vue 2
 Please install ```v1.2.1``` of the plugin. This plugin will focus on maintaining Vue 3 now that it has been officially released.
@@ -71,6 +81,21 @@ new Vue({
 <br />
 
 # Usage
+
+## Global registration (plugin)
+Register the component once for the whole app with `app.use()`:
+
+```js
+import { createApp } from 'vue'
+import LottieAnimation from 'lottie-web-vue'
+import App from './App.vue'
+
+createApp(App)
+  .use(LottieAnimation) // <LottieAnimation> is now available in every component
+  .mount('#app')
+```
+
+## Local registration
 Basic:
 ```html
 <script setup lang="ts">
@@ -344,3 +369,37 @@ onMounted(() => {
     @stopped="stopped"/>
 </template>
 ```
+
+<br />
+
+# Development
+
+Requires Node >= 22 (see [.nvmrc](.nvmrc) — `nvm use` picks it up). Dependency updates arrive weekly via Dependabot and are gated by the full CI suite.
+
+```bash
+npm install          # install dependencies
+npm run dev          # demo app with hot reload
+npm run test         # unit tests (Vitest + @vue/test-utils)
+npm run test:watch   # unit tests in watch mode
+npm run build        # build the library into dist/
+npm run test:pack    # pack the tarball + install it into a throwaway consumer and verify it
+npm run test:e2e     # browser E2E: playground app consuming the packed tarball (Playwright)
+npm run verify       # everything: lint + typecheck + test + build + test:pack + test:e2e
+```
+
+First E2E run needs a browser: `npx playwright install chromium`.
+
+# Contributing
+
+PRs welcome! Please make sure `npm run verify` passes locally. CI runs the same checks (lint, typecheck, unit tests, build, package smoke test, browser E2E) on every pull request.
+
+# Releasing (maintainers)
+
+Releases are automated via GitHub Actions and published to npm with provenance:
+
+1. Update the version: `npm version 3.x.x --no-git-tag-version`, update [CHANGELOG.md](CHANGELOG.md), commit.
+2. Verify locally: `npm run verify`.
+3. Tag and push: `git tag v3.x.x && git push --follow-tags`.
+4. The [release workflow](.github/workflows/release.yml) re-runs the full verification and publishes to npm. Prerelease tags (e.g. `v3.1.0-rc.0`) publish under the `next` dist-tag; stable tags publish as `latest`.
+
+The workflow fails if the tag doesn't match `package.json`'s version. To test a release end-to-end without touching `latest`, cut an `-rc` prerelease first and `npm install lottie-web-vue@next` in a scratch project.

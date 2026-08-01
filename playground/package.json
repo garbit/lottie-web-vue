@@ -1,0 +1,6 @@
+{
+  "name": "lottie-web-vue-playground",
+  "private": true,
+  "type": "module",
+  "description": "Consumer app for E2E tests. The packed lottie-web-vue tarball is installed here (--no-save) by e2e/setup.ts; vue arrives as its peer dependency."
+}
