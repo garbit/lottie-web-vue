@@ -18,7 +18,8 @@
 - `vue` moved from `dependencies` to `peerDependencies` (`^3.3.0`). npm 7+
   installs peers automatically; this stops a second copy of Vue being
   installed into consumer projects.
-- Node >= 20 is required to build the library (no runtime impact).
+- Node >= 22 is required to build the library (no runtime impact on the
+  published dist files, which are plain ES2020).
 
 ### Fixed
 
