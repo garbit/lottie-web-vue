@@ -62,11 +62,13 @@ const mustContain = [
 const mustNotMatch = [/vite\.svg/, /HelloWorld/, /^src\//]
 
 for (const f of mustContain) {
-  files.includes(f) ? pass(`contains ${f}`) : fail(`missing ${f}`)
+  if (files.includes(f)) pass(`contains ${f}`)
+  else fail(`missing ${f}`)
 }
 for (const re of mustNotMatch) {
   const hit = files.find((f) => re.test(f))
-  hit ? fail(`must not ship ${hit}`) : pass(`no ${re} in tarball`)
+  if (hit) fail(`must not ship ${hit}`)
+  else pass(`no ${re} in tarball`)
 }
 
 // 3. Throwaway consumer app
@@ -97,7 +99,8 @@ console.log("esm-ok")
 )
 try {
   const out = run("node", ["consumer.mjs"], { cwd: consumer })
-  out.includes("esm-ok") ? pass("default + named import, same object, install()") : fail(`unexpected output: ${out}`)
+  if (out.includes("esm-ok")) pass("default + named import, same object, install()")
+  else fail(`unexpected output: ${out}`)
 } catch (e) {
   fail(`ESM import failed: ${e.stderr || e.message}`)
 }
@@ -114,7 +117,8 @@ console.log("cjs-ok")
 )
 try {
   const out = run("node", ["consumer.cjs"], { cwd: consumer })
-  out.includes("cjs-ok") ? pass("require() resolves with named + default") : fail(`unexpected output: ${out}`)
+  if (out.includes("cjs-ok")) pass("require() resolves with named + default")
+  else fail(`unexpected output: ${out}`)
 } catch (e) {
   fail(`CJS require failed: ${(e.stderr || e.message).split("\n")[0]}`)
 }
@@ -187,7 +191,8 @@ console.log("ssr-ok")
 )
 try {
   const out = run("node", ["ssr.mjs"], { cwd: consumer })
-  out.includes("ssr-ok") ? pass("SSR renderToString works") : fail(`unexpected output: ${out}`)
+  if (out.includes("ssr-ok")) pass("SSR renderToString works")
+  else fail(`unexpected output: ${out}`)
 } catch (e) {
   fail(`SSR failed: ${(e.stderr || e.message).split("\n")[0]}`)
 }
